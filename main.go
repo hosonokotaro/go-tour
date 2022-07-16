@@ -5,14 +5,17 @@ import (
 )
 
 func main() {
-	var a int = 42
-	var b *int = &a
+	var ms *myStruct
+	fmt.Println("nil の例、struct を pointer として受け取り、使おうとした場合", ms)
 
-	fmt.Println("pointer はアドレスを受け取る", a, b)
-	fmt.Println("pointer を値として受け取る", a, *b)
+	// NOTE: new struct すると、struct の foo が初期化される。
+	ms = new(myStruct)
 
-	a = 27
-	fmt.Println("a を変更する", a, *b)
-	*b = 35
-	fmt.Println("b を変更する", a, *b)
+	// ms.foo は (*ms).foo の syntax sugar
+	ms.foo = 24
+	fmt.Println("フィールド foo を変更する", ms.foo)
+}
+
+type myStruct struct {
+	foo int
 }
