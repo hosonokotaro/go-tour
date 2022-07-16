@@ -5,17 +5,11 @@ import (
 )
 
 func main() {
-	var ms *myStruct
-	fmt.Println("nil の例、struct を pointer として受け取り、使おうとした場合", ms)
+	list1 := map[string]string{"key1": "aaa", "key2": "bbb", "key3": "ccc"}
+	fmt.Println("list1", list1)
 
-	// NOTE: new struct すると、struct の foo が初期化される。
-	ms = new(myStruct)
+	list2 := list1
 
-	// ms.foo は (*ms).foo の syntax sugar
-	ms.foo = 24
-	fmt.Println("フィールド foo を変更する", ms.foo)
-}
-
-type myStruct struct {
-	foo int
+	list1["key1"] = "ddd"
+	fmt.Println("list2 が list1[\"key1\"] の変更によって同じように変わっている", list2)
 }
