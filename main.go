@@ -1,32 +1,26 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	a, b := split(17)
+	g := greeter{
+		greeting: "Hello",
+		name:     "Taro",
+	}
+	fmt.Println("geeter struct を実装した g", g)
 
-	fmt.Println("a:", a)
-	fmt.Println("b:", b)
-
-	fmt.Println(swap("hello", "world"))
-	fmt.Println(add(3, 7))
+	g.greet()
+	fmt.Println("name を変更した g", g)
 }
 
-// return 値に名前を付けると、変数宣言と同様の効果を得る。この return は、戻り値すべてを返す
-func split(sum int) (x, y int) {
-	x = sum * 4 / 9
-	y = sum - x
-	return
+type greeter struct {
+	greeting string
+	name     string
 }
 
-// return に複数の変数を指定できる、取り出すときはどうするかまだわからない
-func swap(a, b string) (string, string) {
-	return b, a
-}
-
-// まとめて型を指定するとき
-func add(x, y int) int {
-	return x + y
+// NOTE: *greeter は pointer として受け取り、その参照を変数内で変更している例
+// もし、pointer ではなく value を渡した場合はコストがかかることを注意される
+func (g *greeter) greet() {
+	fmt.Println("g の struct はここに渡されている。greet() は main 関数から実行できる", g.greeting, g.name)
+	g.name = "幽霊"
 }
